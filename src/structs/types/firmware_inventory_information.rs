@@ -1,8 +1,8 @@
 use crate::core::{strings::*, Handle, UndefinedStruct};
 use crate::SMBiosStruct;
 use serde::{ser::SerializeSeq, ser::SerializeStruct, Serialize, Serializer};
-use std::fmt;
-use std::ops::Deref;
+use core::{ops::Deref, any};
+use alloc::{fmt, vec::Vec};
 
 /// # Firmware Inventory Information (Type 45)
 ///
@@ -134,7 +134,7 @@ impl<'a> SMBiosFirmwareInventoryInformation<'a> {
 
 impl fmt::Debug for SMBiosFirmwareInventoryInformation<'_> {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<SMBiosFirmwareInventoryInformation<'_>>())
+        fmt.debug_struct(any::type_name::<SMBiosFirmwareInventoryInformation<'_>>())
             .field("header", &self.parts.header)
             .field("firmware_component_name", &self.firmware_component_name())
             .field("firmware_version", &self.firmware_version())
@@ -228,7 +228,7 @@ pub struct VersionFormatData {
 
 impl fmt::Debug for VersionFormatData {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<VersionFormatData>())
+        fmt.debug_struct(any::type_name::<VersionFormatData>())
             .field("raw", &self.raw)
             .field("value", &self.value)
             .finish()
@@ -325,7 +325,7 @@ pub struct FirmwareIdFormatData {
 
 impl fmt::Debug for FirmwareIdFormatData {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<FirmwareIdFormatData>())
+        fmt.debug_struct(any::type_name::<FirmwareIdFormatData>())
             .field("raw", &self.raw)
             .field("value", &self.value)
             .finish()
@@ -440,7 +440,7 @@ impl FirmwareInventoryCharacteristics {
 
 impl fmt::Debug for FirmwareInventoryCharacteristics {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<FirmwareInventoryCharacteristics>())
+        fmt.debug_struct(any::type_name::<FirmwareInventoryCharacteristics>())
             .field("raw", &self.raw)
             .field("updatable", &self.updatable())
             .field("write_protect", &self.write_protect())
@@ -476,7 +476,7 @@ pub struct FirmwareInventoryStateInformationData {
 
 impl fmt::Debug for FirmwareInventoryStateInformationData {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<FirmwareInventoryStateInformationData>())
+        fmt.debug_struct(any::type_name::<FirmwareInventoryStateInformationData>())
             .field("raw", &self.raw)
             .field("value", &self.value)
             .finish()

@@ -4,7 +4,7 @@ use std::{
     fs::{read, File},
     io::{prelude::*, Error, ErrorKind, SeekFrom},
     path::Path,
-    ops::RangeBounds,
+    ops::RangeBounds,F
 };
 use core::{
     convert::TryFrom,

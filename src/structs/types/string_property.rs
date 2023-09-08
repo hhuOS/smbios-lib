@@ -1,8 +1,8 @@
 use crate::core::{strings::*, Handle, UndefinedStruct};
 use crate::SMBiosStruct;
 use serde::{ser::SerializeStruct, Serialize, Serializer};
-use std::fmt;
-use std::ops::Deref;
+use core::{ops::Deref, any};
+use alloc::fmt;
 
 /// # String Property (Type 46)
 ///
@@ -54,7 +54,7 @@ impl<'a> SMBiosStringProperty<'a> {
 
 impl fmt::Debug for SMBiosStringProperty<'_> {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<SMBiosStringProperty<'_>>())
+        fmt.debug_struct(any::type_name::<SMBiosStringProperty<'_>>())
             .field("header", &self.parts.header)
             .field("string_property_id", &self.string_property_id())
             .field("string_property_value", &self.string_property_value())
@@ -92,7 +92,7 @@ pub struct StringPropertyIdData {
 
 impl fmt::Debug for StringPropertyIdData {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<StringPropertyIdData>())
+        fmt.debug_struct(any::type_name::<StringPropertyIdData>())
             .field("raw", &self.raw)
             .field("value", &self.value)
             .finish()
@@ -166,6 +166,8 @@ pub enum StringPropertyId {
 
 #[cfg(test)]
 mod tests {
+    use alloc::string::ToString;
+    use alloc::vec;
     use super::*;
 
     #[test]

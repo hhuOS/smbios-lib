@@ -710,7 +710,7 @@ impl From<u8> for SlotHeightData {
 
 impl fmt::Debug for SlotHeightData {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<SlotHeightData>())
+        fmt.debug_struct(any::type_name::<SlotHeightData>())
             .field("raw", &self.raw)
             .field("value", &self.value)
             .finish()
