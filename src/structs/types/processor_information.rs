@@ -1,9 +1,10 @@
 use crate::core::{strings::*, Handle, UndefinedStruct};
 use crate::SMBiosStruct;
 use serde::{ser::SerializeStruct, Serialize, Serializer};
-use std::convert::TryInto;
-use std::fmt;
-use std::ops::Deref;
+use core::convert::TryInto;
+use core::{fmt, any};
+use core::ops::Deref;
+use alloc::{string::String, vec::Vec};
 
 /// # Processor Information (Type 4)
 ///
@@ -302,7 +303,7 @@ impl<'a> SMBiosProcessorInformation<'a> {
 
 impl fmt::Debug for SMBiosProcessorInformation<'_> {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<SMBiosProcessorInformation<'_>>())
+        fmt.debug_struct(any::type_name::<SMBiosProcessorInformation<'_>>())
             .field("header", &self.parts.header)
             .field("socket_designation", &self.socket_designation())
             .field("processor_type", &self.processor_type())
@@ -394,7 +395,7 @@ pub struct ProcessorTypeData {
 
 impl fmt::Debug for ProcessorTypeData {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<ProcessorTypeData>())
+        fmt.debug_struct(any::type_name::<ProcessorTypeData>())
             .field("raw", &self.raw)
             .field("value", &self.value)
             .finish()
@@ -481,7 +482,7 @@ pub struct ProcessorFamilyData {
 
 impl fmt::Debug for ProcessorFamilyData {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<ProcessorFamilyData>())
+        fmt.debug_struct(any::type_name::<ProcessorFamilyData>())
             .field("raw", &self.raw)
             .field("value", &self.value)
             .finish()
@@ -542,7 +543,7 @@ pub struct ProcessorFamilyData2 {
 
 impl fmt::Debug for ProcessorFamilyData2 {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<ProcessorFamilyData2>())
+        fmt.debug_struct(any::type_name::<ProcessorFamilyData2>())
             .field("raw", &self.raw)
             .field("value", &self.value)
             .finish()
@@ -1316,7 +1317,7 @@ pub struct ProcessorUpgradeData {
 
 impl fmt::Debug for ProcessorUpgradeData {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<ProcessorUpgradeData>())
+        fmt.debug_struct(any::type_name::<ProcessorUpgradeData>())
             .field("raw", &self.raw)
             .field("value", &self.value)
             .finish()
@@ -1671,7 +1672,7 @@ impl ProcessorCharacteristics {
 
 impl fmt::Debug for ProcessorCharacteristics {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<ProcessorCharacteristics>())
+        fmt.debug_struct(any::type_name::<ProcessorCharacteristics>())
             .field("raw", &self.raw)
             .field("unknown", &self.unknown())
             .field("bit_64capable", &self.bit_64capable())
@@ -1791,7 +1792,7 @@ impl ProcessorSupportedVoltages {
 
 impl fmt::Debug for ProcessorSupportedVoltages {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<ProcessorSupportedVoltages>())
+        fmt.debug_struct(any::type_name::<ProcessorSupportedVoltages>())
             .field("raw", &self.raw)
             .field("voltages", &self.voltages().as_slice())
             .finish()
@@ -1901,7 +1902,7 @@ impl ProcessorStatus {
 
 impl fmt::Debug for ProcessorStatus {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        fmt.debug_struct(std::any::type_name::<ProcessorStatus>())
+        fmt.debug_struct(any::type_name::<ProcessorStatus>())
             .field("raw", &self.raw)
             .field("socket_populated", &self.socket_populated())
             .field("cpu_status", &self.cpu_status())
