@@ -10,10 +10,9 @@ use std::{
 use core::{
     convert::TryInto,
     slice::Iter,
-    fmt,
     any
 };
-use alloc::{vec::{Vec, IntoIter}, format, string::String};
+use alloc::{vec::{Vec, IntoIter}, fmt, format};
 
 /// # Embodies the three basic parts of an SMBIOS structure
 ///

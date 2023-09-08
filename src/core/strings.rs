@@ -1,6 +1,6 @@
 use serde::{ser::SerializeSeq, Serialize, Serializer};
-use core::fmt;
-use alloc::{vec::Vec, string::String, vec};
+use alloc::{vec::Vec, string::String, string::ToString, string::FromUtf8Error, vec, fmt};
+use core::error;
 
 /// # SMBIOS String-Set
 ///
@@ -110,6 +110,12 @@ impl fmt::Debug for SMBiosStringSet {
     }
 }
 
+impl fmt::Display for SMBiosStringSet {
+    fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
+        fmt.debug_list().entries(self.into_iter()).finish()
+    }
+}
+
 impl Serialize for SMBiosStringSet {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -120,7 +126,7 @@ impl Serialize for SMBiosStringSet {
         for e in strings {
             match e.value {
                 Ok(val) => seq.serialize_element(&val)?,
-                Err(err) => seq.serialize_element(format!("{}", err).as_str())?,
+                Err(err) => seq.serialize_element(alloc::format!("{}", err).as_str())?,
             }
         }
         seq.end()
@@ -145,7 +151,7 @@ fn ser_from_utf8_error<S>(data: &FromUtf8Error, serializer: S) -> Result<S::Ok, 
 where
     S: Serializer,
 {
-    serializer.serialize_str(format!("{}", data).as_str())
+    serializer.serialize_str(alloc::format!("{}", data).as_str())
 }
 
 impl fmt::Display for SMBiosStringError {
@@ -275,7 +281,7 @@ impl Serialize for SMBiosString {
     where
         S: Serializer,
     {
-        serializer.serialize_str(format!("{}", &self).as_str())
+        serializer.serialize_str(alloc::format!("{}", &self).as_str())
     }
 }
 

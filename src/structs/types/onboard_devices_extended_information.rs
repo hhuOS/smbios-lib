@@ -3,7 +3,7 @@ use crate::core::{strings::*, UndefinedStruct};
 use crate::{OnBoardDeviceType, SMBiosStruct};
 use serde::{ser::SerializeStruct, Serialize, Serializer};
 use core::{fmt, any};
-use alloc::string::String;
+
 
 /// # Onboard Devices Extended Information (Type 41)
 ///

@@ -1,8 +1,7 @@
-use crate::core::{strings::*, UndefinedStruct, MemoryTypes, SMBiosStruct};
+use crate::core::{strings::*, UndefinedStruct};
+use crate::{MemoryTypes, SMBiosStruct};
 use serde::{ser::SerializeStruct, Serialize, Serializer};
 use core::{fmt, any};
-#[cfg(feature = "no_std")]
-use alloc::string::String;
 
 /// # Memory Module Information (Type 6, Obsolete)
 ///
@@ -111,6 +110,8 @@ impl Serialize for SMBiosMemoryModuleInformation<'_> {
 
 #[cfg(test)]
 mod tests {
+    use alloc::string::ToString;
+    use alloc::vec;
     use super::*;
 
     #[test]

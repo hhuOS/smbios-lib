@@ -7,6 +7,7 @@
 
 #![warn(missing_docs)]
 #![deny(rust_2018_idioms)]
+#![feature(error_in_core)]
 #![cfg_attr(feature = "no_std", no_std)]
 
 extern crate alloc;

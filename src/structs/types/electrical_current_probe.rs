@@ -2,7 +2,7 @@ use crate::SMBiosStruct;
 use crate::{strings::*, UndefinedStruct};
 use serde::{ser::SerializeStruct, Serialize, Serializer};
 use core::{fmt, any};
-use alloc::string::String;
+
 
 /// # Electrical Current Probe (Type 29)
 ///
